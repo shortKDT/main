@@ -13,3 +13,6 @@
 
 =======
 - **집에가고싶조** : https://github.com/shortKDT
+
+=======
+- **노션 링크** : https://www.notion.so/c898b100950948bbb1ec13fd4c3e4a81
