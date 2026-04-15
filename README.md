@@ -8,8 +8,11 @@ readme
 # 팀원 정보
 - **정지원**
   - GIT URL: https://github.com/jiwon-jung323
-- **정우진** :
+- **정우진**
   - GIT URL: https://github.com/rainstorm0907
-- **김다은** : https://github.com/rlekdm
-- **홍성혁** : https://github.com/HsH1121
-- **이준호** : https://github.com/dlwnsgh1130
+- **김다은**
+  - GIT URL: https://github.com/rlekdm
+- **홍성혁**
+  - GIT URL: https://github.com/HsH1121
+- **이준호**
+  - GIT URL: https://github.com/dlwnsgh1130
