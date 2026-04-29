@@ -191,12 +191,14 @@ Python 기반 크롤링 스크립트와 입력 데이터를 관리합니다.
 
 - `crawling_20260429.py`: 번개장터, 중고나라 상품 데이터 수집 스크립트
 - `keyword_list.csv`: 크롤링에 사용할 검색 키워드 목록
+- `archive/integrated_crawling_initial.py`: 초기 크롤링 코드 보관본
 
 작성 기준:
 
 - 크롤링 결과는 CSV로 저장하거나 DB 저장 로직으로 확장할 수 있습니다.
 - Spring Boot가 직접 Python 코드를 포함하지 않고, DB를 통해 수집 결과를 조회하는 구조를 권장합니다.
 - 실행에 필요한 Python 패키지는 `backend/src/main/python/requirements.txt`에 정리합니다.
+- 개선 전 코드나 Colab 원본에서 변환한 초기 코드는 `archive` 폴더에 보관합니다.
 
 ### `backend/src/main/python/preprocessing`
 
@@ -460,6 +462,7 @@ DB 테이블 생성 SQL과 ERD 기준 정보를 정리합니다.
 - 인덱스
 - 테이블 관계 설명
 - 초기 데이터가 필요하다면 insert 예시
+- ERD 이미지와 데이터 명세서 같은 DB 설계 참고 자료
 
 작성 기준:
 
