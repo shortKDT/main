@@ -29,6 +29,9 @@ readme
 - **김다은**
   - 역할
       - 프론트엔드
+        - 로그인 페이지 컴포넌트(`Login.tsx`) 구현
+        - 마이페이지 컴포넌트(`Mypage.tsx`) 구현
+        - 메인 앱 컴포넌트(`App.tsx`)에서 기본 라우팅 연결
   - GIT URL: https://github.com/rlekdm
 - **이준호**
   - 역할
@@ -61,7 +64,7 @@ readme
 - Frontend: Vite, React, Tailwind CSS
 - Crawling/Preprocessing: Python
 - Database: PostgreSQL 또는 Supabase
-- Docs: DB 스키마, ERD, API 명세, 요구사항 문서
+- Docs: DB 스키마, ERD, API 명세, 요구사항 문서, 구현 파일 체크리스트
 
 ## `code` 폴더 구조
 
@@ -130,7 +133,7 @@ code
 - `code/frontend/src/routes`: React Router 라우팅 설정을 작성합니다.
 - `code/frontend/src/layouts`: 공통 레이아웃을 작성합니다.
 - `code/frontend/src/contexts`: 로그인 상태, 알림 상태, 검색 상태 등 전역 상태를 관리합니다.
-- `code/docs`: 요구사항, API 명세, DB 스키마, ERD, 데이터 명세서를 보관합니다.
+- `code/docs`: 요구사항, 구현 파일 체크리스트, API 명세, DB 스키마, ERD, 데이터 명세서를 보관합니다.
 
 ## 참고 문서
 
