@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>얼마지(Eolmaji) - Wide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              background: '#F9F9FB',
+              card: '#FFFFFF',
+              border: 'rgba(0,0,0,0.04)',
+              secondary: '#86868B',
+            },
+            fontFamily: {
+              sans: ['Pretendard', '-apple-system', 'sans-serif'],
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      /* 가로 스크롤바 숨기기 */
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+      /* Apple 스타일 버튼 그라데이션 */
+      .btn-apple-primary {
+        background: linear-gradient(180deg, #424245 0%, #000000 100%);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
