@@ -6,7 +6,7 @@ const LoginPage = () => {
       <div className="max-w-md w-full p-8 bg-white rounded-2xl shadow-sm border border-gray-100">
         {/* 로고 영역 (이미지의 로고 파일 경로에 맞게 수정하세요) */}
         <div className="flex justify-center mb-8">
-          <img src="/public/hamalogo.png" alt="Hama Logo" className="h-10" />
+          <img src="/hamalogo.png" alt="Hama Logo" className="h-10" />
         </div>
 
         <h2 className="text-2xl font-bold text-center mb-8 text-gray-800">로그인</h2>

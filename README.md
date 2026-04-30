@@ -88,6 +88,7 @@ code
 │           └── application.yml
 ├── frontend
 │   ├── src
+│   │   ├── App.tsx
 │   │   ├── api
 │   │   ├── assets
 │   │   ├── components
@@ -102,6 +103,7 @@ code
 │   └── vite.config.js
 └── docs
     ├── requirements.md
+    ├── document_checklist.md
     ├── api_spec.md
     ├── db_schema.sql
     ├── ERD.drawio.png
@@ -121,6 +123,7 @@ code
 - `code/backend/src/main/java/com/used/service/chatbot`: 챗봇 관련 API와 서비스 로직을 작성합니다.
 - `code/backend/src/main/python`: Python 크롤링 및 전처리 코드를 관리합니다.
 - `code/frontend`: Vite + React 기반 프론트엔드 코드 영역입니다.
+- `code/frontend/src/App.tsx`: React 앱의 최상위 컴포넌트와 기본 라우팅 연결을 작성합니다.
 - `code/frontend/src/pages`: 홈, 로그인, 회원가입, 검색 결과, 상세, 마이페이지 등 페이지 단위 컴포넌트를 작성합니다.
 - `code/frontend/src/components`: Header, Footer, ItemCard, SearchBar 등 공통 컴포넌트를 작성합니다.
 - `code/frontend/src/api`: Axios 설정 및 백엔드 API 통신 모듈을 작성합니다.
@@ -132,6 +135,7 @@ code
 ## 참고 문서
 
 - `code/docs/requirements.md`: 프로젝트 구조 및 파일 작성 가이드
+- `code/docs/document_checklist.md`: 백엔드/프론트엔드 구현 파일 작성 상태 체크리스트
 - `code/docs/api_spec.md`: API 명세서
 - `code/docs/db_schema.sql`: DB 테이블 생성 SQL
 - `code/docs/ERD.drawio.png`: ERD 이미지

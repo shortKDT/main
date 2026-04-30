@@ -1,4 +1,4 @@
-import { Heart, Package, Bell, User, Settings, ChevronRight } from 'lucide-react';
+import { Heart, Package, Bell, User } from 'lucide-react';
 
 // 찜 목록 가상 데이터
 const wishlistItems = [
