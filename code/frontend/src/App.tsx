@@ -4,8 +4,10 @@ import {
   Search, Monitor, Laptop, Smartphone, Bike, Shirt, Footprints,
   Package, Camera, Gamepad2, Armchair, Music, Tent,
   Image as ImageIcon, ChevronLeft, ChevronRight, Clock, X,
-  ArrowLeft, Heart, Bell, User, Settings
+  ArrowLeft, User
 } from 'lucide-react';
+import LoginPage from './pages/Login';
+import MyPage from './pages/Mypage';
 
 // --- 데이터 영역 ---
 const categories = [
@@ -34,56 +36,6 @@ const products = [
   { id: 8, name: 'Keychron Q1 Pro', brand: 'Keychron', price: '240,000원' },
 ];
 
-// --- 👤 마이페이지 컴포넌트 ---
-function MyPage() {
-  const wishlistItems = [
-    { id: 1, name: 'MacBook Pro 14 M3', price: '2,390,000원', brand: 'Apple' },
-    { id: 2, name: 'QuietComfort Ultra', price: '499,000원', brand: 'Bose' },
-  ];
-
-  return (
-    <div className="max-w-[1440px] mx-auto px-8 py-12 flex flex-col md:flex-row gap-12 animate-in fade-in duration-500">
-      <aside className="w-full md:w-64 flex flex-col gap-2">
-        <h2 className="text-2xl font-bold mb-6">마이페이지</h2>
-        <nav className="flex flex-col gap-1">
-          <button className="flex items-center gap-3 p-4 bg-black text-white rounded-2xl font-bold">
-            <Heart className="w-5 h-5" /> 찜 목록
-          </button>
-          <button className="flex items-center gap-3 p-4 hover:bg-gray-100 rounded-2xl text-gray-500 transition-all text-left">
-            <Package className="w-5 h-5" /> 최근 본 상품
-          </button>
-          <button className="flex items-center gap-3 p-4 hover:bg-gray-100 rounded-2xl text-gray-500 transition-all text-left">
-            <Bell className="w-5 h-5" /> 알림 설정
-          </button>
-        </nav>
-      </aside>
-
-      <section className="flex-1">
-        <div className="mb-10">
-          <h3 className="text-xl font-bold mb-2">찜 목록</h3>
-          <p className="text-gray-500 text-sm">관심 있는 상품의 최신 가격 정보를 확인하세요.</p>
-        </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {wishlistItems.map((item) => (
-            <div key={item.id} className="group bg-white p-6 rounded-[24px] border border-black/[0.04] shadow-sm hover:shadow-md transition-all flex items-center gap-6">
-              <div className="w-20 h-20 bg-gray-50 rounded-2xl flex items-center justify-center text-gray-300">
-                <ImageIcon className="w-8 h-8" />
-              </div>
-              <div className="flex-1">
-                <p className="text-[10px] text-gray-400 font-black uppercase">{item.brand}</p>
-                <h4 className="font-bold text-gray-900 text-sm mb-1">{item.name}</h4>
-                <p className="font-bold text-base">{item.price}</p>
-              </div>
-              <button className="p-2 text-red-500"><Heart className="w-5 h-5 fill-current" /></button>
-            </div>
-          ))}
-        </div>
-      </section>
-    </div>
-  );
-}
-
-// --- 🏠 홈 페이지 컴포넌트 ---
 function HomePage() {
   const [activeId, setActiveId] = useState('laptop');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -134,8 +86,8 @@ function HomePage() {
       <section className="w-full px-6 text-center">
         <div className="max-w-[1300px] mx-auto aspect-[21/9] rounded-[32px] bg-gray-100 relative overflow-hidden shadow-sm inline-block w-full">
           <img src="/hama_lowban1.jpg" alt="배너" className="w-full h-full object-cover" />
-          <button className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/90 rounded-full shadow-md flex items-center justify-center"><ChevronLeft className="w-6 h-6"/></button>
-          <button className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/90 rounded-full shadow-md flex items-center justify-center"><ChevronRight className="w-6 h-6"/></button>
+          <button className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/90 rounded-full shadow-md flex items-center justify-center"><ChevronLeft className="w-6 h-6" /></button>
+          <button className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/90 rounded-full shadow-md flex items-center justify-center"><ChevronRight className="w-6 h-6" /></button>
         </div>
       </section>
 
@@ -189,7 +141,6 @@ function HomePage() {
   );
 }
 
-// --- 🌐 메인 App 컴포넌트 ---
 export default function App() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -206,7 +157,6 @@ export default function App() {
 
   return (
     <div className="relative font-sans antialiased text-gray-900 bg-[#F9F9FB]">
-
       {/* --- 모달 시스템 --- */}
       {(isLoginOpen || isSignUpOpen || isFindPwOpen) && (
         <div className="fixed inset-0 z-[100] bg-black/40 backdrop-blur-md transition-all" onClick={closeModals} />
@@ -218,10 +168,10 @@ export default function App() {
           <div className="relative w-full max-w-md bg-white rounded-[32px] shadow-2xl p-10 flex flex-col items-center animate-in fade-in zoom-in duration-300 pointer-events-auto">
             <button onClick={closeModals} className="absolute top-6 right-6 p-2 hover:bg-gray-100 rounded-full"><X className="w-6 h-6 text-gray-400" /></button>
             <img src="/hamalogo.png" alt="Logo" className="h-10 mb-8" />
-            <h2 className="text-2xl font-bold mb-8 text-center leading-tight">반가워요!<br/>다시 로그인할까요?</h2>
+            <h2 className="text-2xl font-bold mb-8 text-center leading-tight">반가워요!<br />다시 로그인할까요?</h2>
             <form className="w-full space-y-4" onSubmit={(e) => { e.preventDefault(); setIsLoggedIn(true); closeModals(); }}>
-              <input type="email" placeholder="이메일 주소" className="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-black outline-none transition-all"/>
-              <input type="password" placeholder="비밀번호" className="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-black outline-none transition-all"/>
+              <input type="email" placeholder="이메일 주소" className="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-black outline-none transition-all" />
+              <input type="password" placeholder="비밀번호" className="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-black outline-none transition-all" />
               <div className="flex justify-end px-1">
                 <button type="button" onClick={() => { setIsLoginOpen(false); setIsFindPwOpen(true); }} className="text-xs font-medium text-gray-400 hover:text-black">비밀번호를 잊으셨나요?</button>
               </div>
@@ -240,9 +190,9 @@ export default function App() {
             <button onClick={closeModals} className="absolute top-6 right-6 p-2 hover:bg-gray-100 rounded-full"><X className="w-6 h-6 text-gray-400" /></button>
             <div className="w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center mb-6"><Search className="w-6 h-6 text-black" /></div>
             <h2 className="text-2xl font-bold mb-3 text-center">비밀번호 찾기</h2>
-            <p className="text-sm text-gray-500 text-center mb-8 leading-relaxed">가입하신 이메일 주소를 입력하시면<br/>비밀번호 재설정 링크를 보내드립니다.</p>
+            <p className="text-sm text-gray-500 text-center mb-8 leading-relaxed">가입하신 이메일 주소를 입력하시면<br />비밀번호 재설정 링크를 보내드립니다.</p>
             <form className="w-full space-y-4" onSubmit={(e) => e.preventDefault()}>
-              <input type="email" placeholder="이메일 주소 입력" className="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-black outline-none transition-all"/>
+              <input type="email" placeholder="이메일 주소 입력" className="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-black outline-none transition-all" />
               <button className="w-full bg-black text-white py-4 rounded-2xl font-bold hover:bg-gray-800 transition-all mt-4">재설정 링크 보내기</button>
             </form>
           </div>
@@ -254,11 +204,11 @@ export default function App() {
         <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 pointer-events-none">
           <div className="relative w-full max-w-md bg-white rounded-[32px] shadow-2xl p-10 flex flex-col items-center animate-in fade-in zoom-in duration-300 pointer-events-auto">
             <button onClick={closeModals} className="absolute top-6 right-6 p-2 hover:bg-gray-100 rounded-full"><X className="w-6 h-6 text-gray-400" /></button>
-            <h2 className="text-2xl font-bold mb-6 text-center leading-tight">새로운 시작,<br/>함께해 보세요!</h2>
+            <h2 className="text-2xl font-bold mb-6 text-center leading-tight">새로운 시작,<br />함께해 보세요!</h2>
             <form className="w-full space-y-4" onSubmit={(e) => e.preventDefault()}>
-              <input type="text" placeholder="이름" className="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-black outline-none"/>
-              <input type="email" placeholder="이메일 주소" className="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-black outline-none"/>
-              <input type="password" placeholder="비밀번호" className="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-black outline-none"/>
+              <input type="text" placeholder="이름" className="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-black outline-none" />
+              <input type="email" placeholder="이메일 주소" className="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-black outline-none" />
+              <input type="password" placeholder="비밀번호" className="w-full px-5 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:ring-2 focus:ring-black outline-none" />
               <button className="w-full bg-black text-white py-4 rounded-2xl font-bold hover:bg-gray-800 transition-all mt-4">시작하기</button>
             </form>
             <div className="mt-8 text-sm text-gray-500">이미 회원이신가요? <button onClick={() => { setIsSignUpOpen(false); setIsLoginOpen(true); }} className="text-black font-bold underline">로그인</button></div>
@@ -288,6 +238,7 @@ export default function App() {
 
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/mypage" element={<MyPage />} />
         </Routes>
 

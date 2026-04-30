@@ -13,6 +13,12 @@ code
 ├── frontend
 │   └── src
 └── docs
+    ├── requirements.md
+    ├── document_checklist.md
+    ├── api_spec.md
+    ├── db_schema.sql
+    ├── ERD.drawio.png
+    └── 데이터 명세서.xlsx
 ```
 
 ## Backend
@@ -236,22 +242,125 @@ Spring Boot 설정 파일입니다.
 
 프론트엔드는 Vite + React 기반 사용자 화면 영역입니다. 상품 검색, 상세 조회, 로그인, 마이페이지, 찜 기능 화면을 담당합니다.
 
+### 프론트엔드 파일 배치 기준
+
+프론트엔드 코드는 반드시 `frontend/src` 아래에 작성합니다. `frontend` 바로 아래에는 설정 파일만 두고, 화면 코드나 컴포넌트 코드는 두지 않습니다.
+
+기본 원칙:
+
+- 앱 전체를 시작하고 페이지를 연결하는 최상위 파일은 `frontend/src/App.tsx`에 둡니다.
+- URL로 이동하는 화면 단위 컴포넌트는 `frontend/src/pages`에 둡니다.
+- 여러 페이지에서 반복해서 쓰는 UI 조각은 `frontend/src/components`에 둡니다.
+- API 호출 함수는 `frontend/src/api`에 둡니다.
+- React 커스텀 훅은 `frontend/src/hooks`에 둡니다.
+- 전역 상태 관리는 `frontend/src/contexts`에 둡니다.
+- 전역 CSS, Tailwind CSS 진입 파일, 공통 스타일은 `frontend/src/styles`에 둡니다.
+- 순수 함수나 포맷팅 함수는 `frontend/src/utils`에 둡니다.
+- 라우팅 설정이 커져서 `App.tsx`에서 분리해야 할 때만 `frontend/src/routes`에 둡니다.
+
+헷갈리기 쉬운 위치:
+
+- `frontend/src/App.tsx`: 맞는 위치입니다. 앱 전체 레이아웃과 라우팅 연결을 담당합니다.
+- `frontend/src/pages/Login.tsx`: 맞는 위치입니다. 로그인 “페이지 화면”을 담당합니다.
+- `frontend/src/pages/Mypage.tsx`: 맞는 위치입니다. 마이페이지 “페이지 화면”을 담당합니다.
+- `frontend/App.tsx`: 잘못된 위치입니다. `src` 밖에 화면 코드를 두지 않습니다.
+- `frontend/pages/Login.tsx`: 잘못된 위치입니다. `pages` 폴더는 반드시 `src` 안에 있어야 합니다.
+- `frontend/src/pages/App.tsx`: 보통 잘못된 위치입니다. `App.tsx`는 페이지가 아니라 앱 최상위 컴포넌트입니다.
+
+예시:
+
+```text
+frontend
+├── src
+│   ├── App.tsx
+│   ├── pages
+│   │   ├── Login.tsx
+│   │   ├── Mypage.tsx
+│   │   └── SearchResult.tsx
+│   ├── components
+│   │   ├── Header.tsx
+│   │   ├── Footer.tsx
+│   │   └── ItemCard.tsx
+│   ├── api
+│   │   ├── userApi.ts
+│   │   └── itemApi.ts
+│   ├── hooks
+│   │   └── useAuth.ts
+│   ├── routes
+│   │   └── AppRouter.tsx
+│   ├── layouts
+│   │   └── MainLayout.tsx
+│   ├── contexts
+│   │   └── AuthContext.tsx
+│   ├── styles
+│   │   └── global.css
+│   └── utils
+│       └── formatPrice.ts
+├── tailwind.config.js
+└── vite.config.js
+```
+
+새 파일을 만들 때 확인 순서:
+
+1. 브라우저 주소와 직접 연결되는 화면인가?
+   맞다면 `frontend/src/pages`에 둡니다. 예: `Login.tsx`, `Mypage.tsx`, `SearchResult.tsx`
+2. 여러 화면에서 재사용되는 버튼, 카드, 헤더 같은 UI인가?
+   맞다면 `frontend/src/components`에 둡니다. 예: `Header.tsx`, `ItemCard.tsx`, `Modal.tsx`
+3. 서버와 통신하는 함수인가?
+   맞다면 `frontend/src/api`에 둡니다. 예: `userApi.ts`, `wishApi.ts`
+4. 여러 컴포넌트에서 반복되는 React 상태 로직인가?
+   맞다면 `frontend/src/hooks`에 둡니다. 예: `useAuth.ts`, `useWish.ts`
+5. 앱 전체에서 공유하는 로그인 상태나 알림 상태인가?
+   맞다면 `frontend/src/contexts`에 둡니다. 예: `AuthContext.tsx`
+6. 가격 표시, 날짜 표시 같은 화면과 무관한 순수 함수인가?
+   맞다면 `frontend/src/utils`에 둡니다. 예: `formatPrice.ts`
+
+### `frontend/src/App.tsx`
+
+React 앱의 최상위 컴포넌트와 기본 라우팅 연결을 작성합니다.
+
+들어갈 내용:
+
+- 전체 앱 레이아웃 연결
+- React Router 기반 페이지 라우팅
+- 전역 모달 또는 공통 화면 상태 연결
+
+작성 기준:
+
+- 페이지 단위 화면은 `frontend/src/pages`에 분리하고, `App.tsx`에서는 라우팅과 최상위 조합을 담당합니다.
+- 라우팅 설정이 커지면 `frontend/src/routes`로 분리할 수 있습니다.
+- `App.tsx`는 `frontend/src/pages` 안에 넣지 않습니다.
+- `App.tsx` 안에 모든 페이지 코드를 길게 작성하기보다, 페이지 컴포넌트를 `pages`에서 import해 연결합니다.
+
+예시:
+
+```tsx
+import LoginPage from './pages/Login';
+import MyPage from './pages/Mypage';
+
+<Routes>
+  <Route path="/login" element={<LoginPage />} />
+  <Route path="/mypage" element={<MyPage />} />
+</Routes>
+```
+
 ### `frontend/src/api`
 
 백엔드 또는 Supabase와 통신하는 API 모듈을 작성합니다.
 
 들어갈 수 있는 파일 예시:
 
-- `axios.js`: Axios 기본 URL, 공통 헤더, 인터셉터 설정
-- `userApi.js`: 회원가입, 로그인, 회원 정보 API
-- `itemApi.js`: 상품 목록, 상품 검색, 상품 상세 API
-- `wishApi.js`: 찜 등록, 찜 취소, 찜 목록 API
-- `recommendationApi.js`: 추천 상품 API
+- `axios.ts`: Axios 기본 URL, 공통 헤더, 인터셉터 설정
+- `userApi.ts`: 회원가입, 로그인, 회원 정보 API
+- `itemApi.ts`: 상품 목록, 상품 검색, 상품 상세 API
+- `wishApi.ts`: 찜 등록, 찜 취소, 찜 목록 API
+- `recommendationApi.ts`: 추천 상품 API
 
 작성 기준:
 
 - 화면 컴포넌트에서 직접 `fetch` 또는 `axios`를 반복 작성하지 않도록 API 호출을 모읍니다.
 - 토큰이 필요한 요청은 공통 설정에서 처리합니다.
+- JSX 화면을 반환하지 않는 API 함수 파일은 `.ts` 확장자를 사용합니다.
 
 ### `frontend/src/assets`
 
@@ -275,17 +384,18 @@ Spring Boot 설정 파일입니다.
 
 들어갈 수 있는 파일 예시:
 
-- `Header.jsx`: 상단 메뉴
-- `Footer.jsx`: 하단 영역
-- `ItemCard.jsx`: 상품 카드
-- `SearchBar.jsx`: 검색창
-- `Button.jsx`: 공통 버튼
-- `Modal.jsx`: 공통 모달
+- `Header.tsx`: 상단 메뉴
+- `Footer.tsx`: 하단 영역
+- `ItemCard.tsx`: 상품 카드
+- `SearchBar.tsx`: 검색창
+- `Button.tsx`: 공통 버튼
+- `Modal.tsx`: 공통 모달
 
 작성 기준:
 
 - 특정 페이지에만 강하게 묶인 컴포넌트는 `pages` 내부에서 관리할 수 있습니다.
 - 여러 화면에서 재사용되면 `components`에 둡니다.
+- URL 경로와 직접 연결되는 화면 전체는 `components`가 아니라 `pages`에 둡니다.
 
 ### `frontend/src/hooks`
 
@@ -293,14 +403,15 @@ React 커스텀 훅을 작성합니다.
 
 들어갈 수 있는 파일 예시:
 
-- `useAuth.js`: 로그인 상태, 토큰, 사용자 정보 관리
-- `useSearch.js`: 검색어, 검색 결과, 검색 상태 관리
-- `useWish.js`: 찜 상태 관리
+- `useAuth.ts`: 로그인 상태, 토큰, 사용자 정보 관리
+- `useSearch.ts`: 검색어, 검색 결과, 검색 상태 관리
+- `useWish.ts`: 찜 상태 관리
 
 작성 기준:
 
 - 여러 컴포넌트에서 반복되는 상태 관리 로직을 분리합니다.
 - API 호출과 화면 상태가 함께 반복될 때 커스텀 훅으로 만들 수 있습니다.
+- 훅 파일명은 React 관례에 따라 `use`로 시작합니다.
 
 ### `frontend/src/pages`
 
@@ -308,17 +419,29 @@ React 커스텀 훅을 작성합니다.
 
 들어갈 수 있는 파일 예시:
 
-- `Main.jsx`: 메인 페이지
-- `SearchResult.jsx`: 검색 결과 페이지
-- `Detail.jsx`: 상품 상세 페이지
-- `MyPage.jsx`: 마이페이지
-- `Login.jsx`: 로그인 페이지
-- `Signup.jsx`: 회원가입 페이지
+- `Main.tsx`: 메인 페이지
+- `SearchResult.tsx`: 검색 결과 페이지
+- `Detail.tsx`: 상품 상세 페이지
+- `Mypage.tsx`: 마이페이지
+- `Login.tsx`: 로그인 페이지
+- `Signup.tsx`: 회원가입 페이지
 
 작성 기준:
 
 - URL 경로와 직접 연결되는 화면을 배치합니다.
 - 공통 UI는 `components`에서 가져와 조합합니다.
+- 페이지 파일은 `frontend/src/pages` 바로 아래에 두는 것을 기본으로 합니다.
+- 같은 이름의 페이지를 `frontend/pages`처럼 `src` 밖에 다시 만들지 않습니다.
+- 페이지 안에서만 쓰는 작은 보조 컴포넌트는 같은 파일 안에 둘 수 있지만, 다른 페이지에서도 쓰이면 `components`로 이동합니다.
+
+예시:
+
+```text
+frontend/src/pages/Login.tsx
+frontend/src/pages/Mypage.tsx
+frontend/src/pages/SearchResult.tsx
+frontend/src/pages/Detail.tsx
+```
 
 ### `frontend/src/styles`
 
@@ -341,15 +464,16 @@ React 커스텀 훅을 작성합니다.
 
 들어갈 수 있는 파일 예시:
 
-- `formatPrice.js`: 가격 표시 형식 변환
-- `formatDate.js`: 날짜 표시 형식 변환
-- `storage.js`: localStorage/sessionStorage 공통 함수
-- `validation.js`: 입력값 검증 함수
+- `formatPrice.ts`: 가격 표시 형식 변환
+- `formatDate.ts`: 날짜 표시 형식 변환
+- `storage.ts`: localStorage/sessionStorage 공통 함수
+- `validation.ts`: 입력값 검증 함수
 
 작성 기준:
 
 - React 상태나 화면 렌더링에 직접 의존하지 않는 함수를 둡니다.
 - 여러 곳에서 재사용되는 작은 기능을 모읍니다.
+- JSX를 반환하지 않는 순수 유틸리티는 `.ts` 확장자를 사용합니다.
 
 ### `frontend/src/routes`
 
@@ -357,13 +481,14 @@ React Router 라우팅 설정을 작성합니다.
 
 들어갈 수 있는 파일 예시:
 
-- `AppRouter.jsx`: 전체 페이지 라우팅
-- `ProtectedRoute.jsx`: 로그인 필요 페이지 접근 제어
+- `AppRouter.tsx`: 전체 페이지 라우팅
+- `ProtectedRoute.tsx`: 로그인 필요 페이지 접근 제어
 
 작성 기준:
 
 - 홈, 로그인, 회원가입, 검색 결과, 상세 페이지, 마이페이지 경로를 관리합니다.
 - 인증이 필요한 페이지는 보호 라우트로 분리합니다.
+- 라우팅이 단순하면 `frontend/src/App.tsx`에 두고, 복잡해지면 이 폴더로 분리합니다.
 
 ### `frontend/src/layouts`
 
@@ -371,8 +496,8 @@ React Router 라우팅 설정을 작성합니다.
 
 들어갈 수 있는 파일 예시:
 
-- `MainLayout.jsx`: Header, Footer, 공통 컨테이너 포함
-- `AuthLayout.jsx`: 로그인/회원가입 화면 전용 레이아웃
+- `MainLayout.tsx`: Header, Footer, 공통 컨테이너 포함
+- `AuthLayout.tsx`: 로그인/회원가입 화면 전용 레이아웃
 
 작성 기준:
 
@@ -385,9 +510,9 @@ React Router 라우팅 설정을 작성합니다.
 
 들어갈 수 있는 파일 예시:
 
-- `AuthContext.jsx`: 로그인 사용자 정보, 토큰 상태
-- `NotificationContext.jsx`: 알림 목록과 읽음 상태
-- `SearchContext.jsx`: 최근 검색어, 검색 상태
+- `AuthContext.tsx`: 로그인 사용자 정보, 토큰 상태
+- `NotificationContext.tsx`: 알림 목록과 읽음 상태
+- `SearchContext.tsx`: 최근 검색어, 검색 상태
 
 작성 기준:
 
@@ -432,6 +557,23 @@ Vite 프로젝트 설정 파일입니다.
 - 역할 분담
 - 화면별 기능 요구사항
 - API 요구사항
+
+### `docs/document_checklist.md`
+
+백엔드와 프론트엔드의 구현 파일 작성 상태와 누락된 파일을 확인하기 위한 체크리스트입니다.
+
+들어갈 내용:
+
+- 백엔드 Java 계층별 구현 파일 작성 여부
+- Python 크롤링/전처리 파일 작성 여부
+- 프론트엔드 페이지, 컴포넌트, API, 훅, 상태 관리 파일 작성 여부
+- 아직 `.gitkeep`만 있는 빈 폴더 확인 항목
+
+작성 기준:
+
+- 구현 파일을 추가하거나 기능 코드를 작성할 때마다 체크 상태를 갱신합니다.
+- 새 구현 파일이 추가되면 체크리스트에도 항목을 추가합니다.
+- 기능 코드가 들어간 폴더의 `.gitkeep` 필요 여부를 함께 확인합니다.
 
 ### `docs/api_spec.md`
 
