@@ -9,9 +9,36 @@ code
 ├── backend
 │   └── src/main
 │       ├── java/com/used/service
+│       │   ├── config
+│       │   ├── controller
+│       │   ├── service
+│       │   ├── repository
+│       │   ├── dto
+│       │   ├── entity
+│       │   ├── scheduler
+│       │   ├── notification
+│       │   ├── chatbot
+│       │   └── exception
+│       ├── python
+│       │   ├── crawling
+│       │   ├── preprocessing
+│       │   └── requirements.txt
 │       └── resources
 ├── frontend
-│   └── src
+│   ├── src
+│   │   ├── App.tsx
+│   │   ├── api
+│   │   ├── assets
+│   │   ├── components
+│   │   ├── hooks
+│   │   ├── pages
+│   │   ├── styles
+│   │   ├── utils
+│   │   ├── routes
+│   │   ├── layouts
+│   │   └── contexts
+│   ├── tailwind.config.js
+│   └── vite.config.js
 └── docs
     ├── requirements.md
     ├── document_checklist.md
