@@ -1,145 +1,130 @@
-readme
-=======
-- 조이름 : 집에가고싶조
-- git : https://github.com/shortKDT
-- notion : https://suave-kip-fd7.notion.site/KDT-350c2695cef080ec881ad5a86bdd8da8
+# Hama Front-end
 
-=======
-# 팀원 정보
-- **정지원**
-  - 역할
-      - 팀장
-      - Back-end & DB 설계
-        - 11개 테이블 아키텍처 설계 및 데이터 명세서(Data Dictionary) 표준화
-        - 사용자 검색 로그 기반 맞춤 상품 추천 알고리즘 및 가중치 로직 설계
-      - 깃 관리자
-        - GitHub 레포지토리 환경 구축 및 SQL 스크립트 형상 관리 총괄
-  - GIT URL: https://github.com/jiwon-jung323
-- **정우진**
-  - 역할
-      - 프로젝트 매니저
-      - Back-end
-        - 플랫폼별(번개장터, 중고나라 등) 데이터 수집 파이프라인 및 중복 매물 방지 로직 설계
-        - 시세 추적을 위한 일 단위 가격 데이터 수집 주기 및 저장 구조 최적화
-      - Front-end & UI/UX
-        - Vite 및 React 기반의 프로젝트 아키텍처 설계 및 최적화된 초기 구조 구축
-        - Tailwind CSS를 활용한 커스텀 디자인 시스템(컬러셋, 폰트, 그리드) 및 공통 컴포넌트
-        - KREAM/Apple 스타일의 미니멀한 UI 구현 및 고도화된 반응형 레이아웃 퍼블리싱
-  - GIT URL: https://github.com/rainstorm0907
-- **김다은**
-  - 역할
-      - 프론트엔드
-        - 로그인 페이지 컴포넌트(`Login.tsx`) 구현
-        - 마이페이지 컴포넌트(`Mypage.tsx`) 구현
-        - 메인 앱 컴포넌트(`App.tsx`)에서 기본 라우팅 연결
-  - GIT URL: https://github.com/rlekdm
-- **이준호**
-  - 역할
-      - 백엔드
-  - GIT URL: https://github.com/dlwnsgh1130
+중고거래 플랫폼의 상품 가격을 한 화면에서 비교하고, 사용자가 원하는 상품의 최저가와 플랫폼별 차이를 직관적으로 확인할 수 있도록 돕는 웹 서비스입니다.
 
-=======
-# 프로젝트 설명
+## 프로젝트 개요
 
-본 프로젝트는 중고거래 플랫폼의 상품 데이터를 수집하고, 사용자의 검색 이력과 찜 정보를 기반으로 상품 검색, 가격 비교, 최저가 알림, 맞춤 추천 기능을 제공하는 웹 서비스입니다.
+- 프로젝트명: Hama
+- 주제: 중고사이트 데이터를 활용한 상품별 가격 비교
+- 목적: 중고 판매 서비스를 이용할 때 플랫폼별 가격과 상품 정보를 한눈에 비교하기 어렵다는 문제를 해결합니다.
+- 주요 사용자: 중고 상품의 시세, 최저가, 플랫폼별 차이를 확인하고 싶은 일반 사용자
 
-주요 데이터는 Python 크롤링/전처리 작업을 통해 수집한 뒤 DB에 저장하고, Spring Boot 백엔드가 DB 데이터를 조회하여 React 프론트엔드에 API로 제공합니다.
+## 핵심 기능
 
-## 주요 기능
+- 상품명 기반 검색
+- 검색 오염도 완화를 고려한 검색 결과 제공
+- 플랫폼별 상품 가격 및 최저가 비교
+- 상품 상세 정보와 원본 판매 페이지 연결
+- 최근 검색어 관리
+- 관심 상품 찜 및 목표 가격 설정
+- AI 챗봇을 통한 평균 가격, 시세 정보 제공
 
-- 회원가입 및 로그인
-- 개인 페이지 및 찜 목록 관리
-- 찜 상품의 현재 가격, 가격 변동, 역대 최저가 정보 제공
-- 가격 갱신 시 최저가 알림 제공
-- 검색 키워드 기반 상품 검색
-- 검색 결과 상단 가격 대시보드 제공
-- 최근 검색어 및 검색 순위 제공
-- 최근 검색 결과 기반 맞춤 상품 추천
-- 챗봇 기능
-- 홈 화면 배너 및 카테고리 제공
+## 기술 스택
 
-## 기술 구성
+- Vite
+- React
+- TypeScript
+- Tailwind CSS
+- react-router-dom
+- lucide-react
 
-- Backend: Java, Spring Boot
-- Frontend: Vite, React, Tailwind CSS
-- Crawling/Preprocessing: Python
-- Database: PostgreSQL 또는 Supabase
-- Docs: DB 스키마, ERD, API 명세, 요구사항 문서, 구현 파일 체크리스트
+## 초기 세팅 및 실행
 
-## `code` 폴더 구조
+처음 프로젝트를 받은 뒤에는 의존성을 먼저 설치합니다. `react-router-dom`도 이 설치 과정에서 함께 설치됩니다.
 
-```text
-code
-├── backend
-│   └── src/main
-│       ├── java/com/used/service
-│       │   ├── config
-│       │   ├── controller
-│       │   ├── service
-│       │   ├── repository
-│       │   ├── dto
-│       │   ├── entity
-│       │   ├── scheduler
-│       │   ├── notification
-│       │   ├── chatbot
-│       │   └── exception
-│       ├── python
-│       │   ├── crawling
-│       │   ├── preprocessing
-│       │   └── requirements.txt
-│       └── resources
-│           └── application.yml
-├── frontend
-│   ├── src
-│   │   ├── App.tsx
-│   │   ├── api
-│   │   ├── assets
-│   │   ├── components
-│   │   ├── hooks
-│   │   ├── pages
-│   │   ├── styles
-│   │   ├── utils
-│   │   ├── routes
-│   │   ├── layouts
-│   │   └── contexts
-│   ├── tailwind.config.js
-│   └── vite.config.js
-└── docs
-    ├── requirements.md
-    ├── document_checklist.md
-    ├── api_spec.md
-    ├── db_schema.sql
-    ├── ERD.drawio.png
-    └── 데이터 명세서.xlsx
+```bash
+npm install
+npm run dev
 ```
 
-## 폴더별 설명
+개발 서버가 실행되면 브라우저에서 아래 주소로 접속합니다.
 
-- `code/backend`: Spring Boot 기반 백엔드 코드 영역입니다.
-- `code/backend/src/main/java/com/used/service/controller`: 사용자 요청을 받는 REST API 컨트롤러를 작성합니다.
-- `code/backend/src/main/java/com/used/service/service`: 회원, 상품, 찜, 추천, 검색 등 핵심 비즈니스 로직을 작성합니다.
-- `code/backend/src/main/java/com/used/service/repository`: DB 접근 코드를 작성합니다.
-- `code/backend/src/main/java/com/used/service/entity`: DB 테이블과 매핑되는 Entity 클래스를 작성합니다.
-- `code/backend/src/main/java/com/used/service/dto`: API 요청/응답 데이터 객체를 작성합니다.
-- `code/backend/src/main/java/com/used/service/scheduler`: 가격 갱신, 최저가 알림, 검색 순위 집계 같은 정기 작업을 작성합니다.
-- `code/backend/src/main/java/com/used/service/notification`: 알림 생성, 조회, 읽음 처리 로직을 작성합니다.
-- `code/backend/src/main/java/com/used/service/chatbot`: 챗봇 관련 API와 서비스 로직을 작성합니다.
-- `code/backend/src/main/python`: Python 크롤링 및 전처리 코드를 관리합니다.
-- `code/frontend`: Vite + React 기반 프론트엔드 코드 영역입니다.
-- `code/frontend/src/App.tsx`: React 앱의 최상위 컴포넌트와 기본 라우팅 연결을 작성합니다.
-- `code/frontend/src/pages`: 홈, 로그인, 회원가입, 검색 결과, 상세, 마이페이지 등 페이지 단위 컴포넌트를 작성합니다.
-- `code/frontend/src/components`: Header, Footer, ItemCard, SearchBar 등 공통 컴포넌트를 작성합니다.
-- `code/frontend/src/api`: Axios 설정 및 백엔드 API 통신 모듈을 작성합니다.
-- `code/frontend/src/routes`: React Router 라우팅 설정을 작성합니다.
-- `code/frontend/src/layouts`: 공통 레이아웃을 작성합니다.
-- `code/frontend/src/contexts`: 로그인 상태, 알림 상태, 검색 상태 등 전역 상태를 관리합니다.
-- `code/docs`: 요구사항, 구현 파일 체크리스트, API 명세, DB 스키마, ERD, 데이터 명세서를 보관합니다.
+```text
+http://127.0.0.1:5173/
+```
 
-## 참고 문서
+## 빌드 및 검사
 
-- `code/docs/requirements.md`: 프로젝트 구조 및 파일 작성 가이드
-- `code/docs/document_checklist.md`: 백엔드/프론트엔드 구현 파일 작성 상태 체크리스트
-- `code/docs/api_spec.md`: API 명세서
-- `code/docs/db_schema.sql`: DB 테이블 생성 SQL
-- `code/docs/ERD.drawio.png`: ERD 이미지
-- `code/docs/데이터 명세서.xlsx`: 데이터 명세서
+```bash
+npm run lint
+npm run build
+```
+
+## 라우팅 구조
+
+이 프로젝트는 `react-router-dom`으로 페이지 이동을 관리합니다.
+
+- `/`: 메인 페이지
+- `/mypage`: 마이페이지
+- 향후 확장 예정: `/search`, `/product/:id`
+
+현재 상품 상세는 별도 페이지가 아니라 메인/검색 결과에서 재사용할 수 있는 팝업 방식으로 유지합니다.
+
+## 폴더 주의사항
+
+- `node_modules`: 로컬 개발에 필요한 의존성 폴더입니다. `npm install`로 생성되며 `.gitignore`에 포함되어 공유/제출 대상이 아닙니다.
+- `dist`: `npm run build` 실행 시 생성되는 빌드 결과물입니다. 필요할 때 다시 만들 수 있습니다.
+
+## 프론트엔드 & UI/UX 체크리스트
+
+### 1단계: 아키텍처 및 디자인 시스템
+
+- [x] Vite + React 환경 설정: 프로젝트 초기 폴더 구조 구성
+- [x] 라우팅 설정: 메인, 마이페이지 경로 구성
+- [x] Tailwind CSS 설정: 기본 스타일 및 반응형 유틸리티 적용
+- [ ] 디자인 토큰 정리: 컬러, 폰트, 간격, radius, shadow 기준 문서화
+- [x] 공통 UI 영역 구현: 헤더, 검색창, 배너, 카테고리, 푸터
+- [x] 공통 컴포넌트 분리: Header, Footer, SearchBar, ProductCard, ProductDetailModal 등
+
+### 2단계: 주요 페이지 퍼블리싱
+
+- [x] 메인 화면: 검색창, 배너, 카테고리, 추천 상품 그리드
+- [x] 추천 상품 그리드: 데스크톱 4열 중심의 반응형 카드 레이아웃
+- [ ] 검색 결과 페이지: 상품 카드 리스트, 정렬, 플랫폼/가격 필터
+- [ ] 모바일 필터 UI: Bottom Sheet 형태의 필터 화면
+- [ ] 상품 상세 페이지: 상품 이미지, 플랫폼 정보, 가격 이력, 원본 페이지 이동
+- [ ] 가격 비교 UI: 플랫폼별 최저가, 평균가, 가격 범위 표시
+- [x] 마이페이지: 찜 목록 중심의 기본 화면
+- [x] 로그인/회원가입: 팝업 기반 기본 폼
+- [ ] AI 챗봇 UI: 평균 가격, 시세, 추천 질문 응답 영역
+
+### 3단계: 백엔드 데이터 연동 및 상태 관리
+
+- [ ] API 통신 모듈 구성: 백엔드 API 요청/응답 공통 처리
+- [ ] API 계약 정리: 검색, 상품 상세, 가격 비교, 찜, 로그인 응답 형식 정의
+- [ ] 검색 기능 연동: 검색어 입력, 결과 조회, 검색 결과 상태 관리
+- [ ] 최근 검색어 관리: 로컬스토리지 저장, 개별 삭제, 전체 삭제
+- [ ] 카테고리 필터 연동: 선택된 카테고리에 맞는 상품 목록 표시
+- [ ] 정렬 기능 연동: 인기순, 최신순, 가격순 등 기준별 정렬
+- [ ] 찜 기능 연동: 관심 상품 등록/삭제 및 마이페이지 반영
+- [x] 인증 상태 관리: mock 로그인 여부에 따른 헤더 표시 전환
+
+### 4단계: 사용자 경험 품질
+
+- [ ] 로딩 상태: 검색 결과, 상품 상세, 찜 목록 스켈레톤 UI
+- [ ] 빈 상태: 검색 결과 없음, 최근 검색어 없음, 찜 목록 없음
+- [ ] 에러 상태: API 실패, 네트워크 오류, 권한 오류 메시지
+- [ ] 키보드 접근성: 검색창, 카테고리, 정렬 버튼, 카드 이동 가능 여부 확인
+- [ ] 반응형 검증: 모바일, 태블릿, 데스크톱 주요 화면 확인
+- [ ] 이미지 대체 UI: 상품 이미지 로딩 실패 또는 이미지 없음 처리
+- [ ] 접근성 기본 검증: alt, label, focus ring, 색 대비 확인
+
+### 5단계: 프로젝트 관리 및 협업
+
+- [ ] 화면별 완료 기준 정리: 메인, 검색 결과, 상세, 마이페이지별 Definition of Done 작성
+- [ ] 백엔드 연동 전 mock data 구조 확정
+- [ ] API 변경 사항 기록 방식 정리
+- [ ] 프론트/백엔드 역할 분리: 데이터 가공 위치와 화면 표시 책임 구분
+- [ ] 발표용 사용자 플로우 정리: 검색 -> 비교 -> 상세 -> 원본 페이지 이동
+
+## 현재 진행 상황
+
+현재 프론트엔드는 메인 화면, 상품 상세 팝업, 로그인/회원가입 팝업, 마이페이지 기본 화면까지 구현되어 있습니다. 실제 검색 실행, API 연동, 검색 결과 페이지, AI 챗봇 기능은 아직 구현 전입니다.
+
+## 다음 우선순위
+
+1. mock data 기반 검색 결과 페이지 구현
+2. 백엔드 API 계약 문서화
+3. 검색/정렬/필터/최근 검색어 상태 연동
+4. 로그인/회원가입 API 연동
+5. 찜 목록과 목표 가격 기능 연동
