@@ -14,10 +14,11 @@
 - [ ] Backend Java 기본 구조 구현
 - [x] Backend Python 크롤링 파일 작성
 - [ ] Backend Python 전처리 파일 작성
-- [ ] Frontend Vite 실행 진입 파일 구성
+- [x] Frontend Hama Vite 실행 진입 파일 구성
 - [x] Frontend 기본 App 컴포넌트 작성
-- [x] Frontend 페이지 컴포넌트 일부 작성
-- [ ] Frontend API, 공통 컴포넌트, 훅, 상태 관리 파일 작성
+- [x] Frontend 홈 화면 공통 컴포넌트 작성
+- [x] Frontend 목 데이터와 타입 파일 작성
+- [ ] Frontend API, 훅, 라우팅, 전역 상태 관리 파일 작성
 
 ## Backend Java
 
@@ -181,130 +182,70 @@
 
 ## Frontend
 
-기준 위치: `code/frontend`
+기준 위치: `code/frontend/Hama`
 
 ### Vite 실행 기본 파일
 
-- [ ] `package.json`: 프론트엔드 의존성 및 실행 스크립트
-- [ ] `index.html`: Vite HTML 진입 파일
-- [ ] `src/main.tsx`: React 렌더링 진입 파일
-- [x] `vite.config.js`: Vite 설정 파일 생성
-- [x] `tailwind.config.js`: Tailwind CSS 설정 파일 생성
+- [x] `package.json`: 프론트엔드 의존성 및 실행 스크립트
+- [x] `package-lock.json`: npm 의존성 잠금 파일
+- [x] `index.html`: Vite HTML 진입 파일
+- [x] `src/main.tsx`: React 렌더링 진입 파일
+- [x] `vite.config.ts`: Vite 설정 파일
+- [x] `tsconfig.json`: TypeScript 공통 설정 파일
+- [x] `tsconfig.app.json`: 앱 빌드용 TypeScript 설정 파일
+- [x] `tsconfig.node.json`: Node/Vite 설정용 TypeScript 설정 파일
+- [x] `eslint.config.js`: ESLint 설정 파일
 
 ### `src/App.tsx`
 
 - [x] `src/App.tsx`: 앱 최상위 컴포넌트 작성
-- [x] `/` 홈 라우트 연결
-- [x] `/login` 로그인 페이지 라우트 연결
-- [x] `/mypage` 마이페이지 라우트 연결
-- [ ] 라우팅 규모가 커질 경우 `src/routes`로 분리
-
-### `src/pages`
-
-- [x] `Login.tsx`: 로그인 페이지 작성
-- [x] `Mypage.tsx`: 마이페이지 작성
-- [ ] `Main.tsx`: 메인 페이지 분리 작성
-- [ ] `Signup.tsx`: 회원가입 페이지 작성
-- [ ] `SearchResult.tsx`: 검색 결과 페이지 작성
-- [ ] `Detail.tsx`: 상품 상세 페이지 작성
-- [ ] `WishList.tsx`: 찜 목록 전용 페이지가 필요할 경우 작성
+- [x] 검색 패널 열림/닫힘 상태 관리
+- [x] 선택된 카테고리 상태 관리
+- [x] Header, SearchPanel, HeroBanner, CategoryGrid, ProductGrid, Footer 연결
+- [ ] API 연동 후 목 데이터 의존성 제거 또는 fixture 분리
 
 ### `src/components`
 
-- [ ] `Header.tsx`: 상단 메뉴 공통 컴포넌트
-- [ ] `Footer.tsx`: 하단 영역 공통 컴포넌트
-- [ ] `SearchBar.tsx`: 검색창 공통 컴포넌트
-- [ ] `ItemCard.tsx`: 상품 카드 공통 컴포넌트
-- [ ] `Modal.tsx`: 공통 모달 컴포넌트
-- [ ] `Button.tsx`: 공통 버튼 컴포넌트
+- [x] `Header.tsx`: 상단 로고와 메뉴 영역
+- [x] `SearchPanel.tsx`: 검색 입력창과 최근 검색어 패널
+- [x] `HeroBanner.tsx`: 홈 배너 영역
+- [x] `CategoryGrid.tsx`: 카테고리 선택 그리드
+- [x] `ProductGrid.tsx`: 추천 상품 목록 그리드
+- [x] `Footer.tsx`: 하단 정보 영역
+- [ ] 로그인/회원가입 UI가 필요하면 별도 컴포넌트 또는 페이지로 추가
+- [ ] 마이페이지 UI가 필요하면 별도 컴포넌트 또는 페이지로 추가
 
-현재 상태:
+### `src/data`
 
-- [ ] `components` 폴더에는 아직 `.gitkeep`만 있음
+- [x] `catalog.ts`: 카테고리, 추천 상품, 최근 검색어 목 데이터
+- [ ] 백엔드 API 연동 시 데이터 대체 방식 정리
 
-### `src/api`
+### `src/types`
 
-- [ ] `axios.ts`: API 기본 설정
-- [ ] `userApi.ts`: 회원가입, 로그인, 사용자 API
-- [ ] `itemApi.ts`: 상품 검색, 상세 API
-- [ ] `wishApi.ts`: 찜 API
-- [ ] `recommendationApi.ts`: 추천 API
-- [ ] `notificationApi.ts`: 알림 API
-- [ ] `chatbotApi.ts`: 챗봇 API
+- [x] `catalog.ts`: `Category`, `Product` 타입 정의
+- [ ] API 응답 타입 추가 필요 여부 확인
 
-현재 상태:
+### 스타일 파일
 
-- [ ] `api` 폴더에는 아직 `.gitkeep`만 있음
+- [x] `src/index.css`: 전역 스타일
+- [x] `src/App.css`: 앱 화면 스타일
+- [ ] 디자인 토큰 또는 공통 변수 분리 필요 여부 확인
 
-### `src/hooks`
+### 정적 파일
 
-- [ ] `useAuth.ts`: 로그인 상태 관리 훅
-- [ ] `useSearch.ts`: 검색 상태 관리 훅
-- [ ] `useWish.ts`: 찜 상태 관리 훅
-- [ ] `useNotification.ts`: 알림 상태 관리 훅
+- [x] `public/hamalogo.png`: 서비스 로고
+- [x] `public/hama_lowban1.jpg`: 홈 배너 이미지
+- [x] `public/favicon.svg`: 파비콘
+- [x] `public/icons.svg`: 아이콘 리소스
 
-현재 상태:
+### 아직 없는 기능/폴더
 
-- [ ] `hooks` 폴더에는 아직 `.gitkeep`만 있음
-
-### `src/routes`
-
-- [ ] `AppRouter.tsx`: 라우팅 설정 분리
-- [ ] `ProtectedRoute.tsx`: 로그인 필요 페이지 접근 제어
-
-현재 상태:
-
-- [ ] `routes` 폴더에는 아직 `.gitkeep`만 있음
-
-### `src/layouts`
-
-- [ ] `MainLayout.tsx`: Header, Footer 포함 기본 레이아웃
-- [ ] `AuthLayout.tsx`: 로그인, 회원가입 전용 레이아웃
-
-현재 상태:
-
-- [ ] `layouts` 폴더에는 아직 `.gitkeep`만 있음
-
-### `src/contexts`
-
-- [ ] `AuthContext.tsx`: 로그인 사용자 정보와 토큰 상태
-- [ ] `NotificationContext.tsx`: 알림 상태
-- [ ] `SearchContext.tsx`: 검색 상태
-
-현재 상태:
-
-- [ ] `contexts` 폴더에는 아직 `.gitkeep`만 있음
-
-### `src/styles`
-
-- [ ] `global.css`: 전체 폰트, body, reset 스타일
-- [ ] `tailwind.css`: Tailwind CSS 진입 파일
-- [ ] `theme.css`: 색상, 간격 등 디자인 변수
-
-현재 상태:
-
-- [ ] `styles` 폴더에는 아직 `.gitkeep`만 있음
-
-### `src/utils`
-
-- [ ] `formatPrice.ts`: 가격 표시 형식 변환
-- [ ] `formatDate.ts`: 날짜 표시 형식 변환
-- [ ] `storage.ts`: localStorage/sessionStorage 공통 함수
-- [ ] `validation.ts`: 입력값 검증 함수
-
-현재 상태:
-
-- [ ] `utils` 폴더에는 아직 `.gitkeep`만 있음
-
-### `src/assets`
-
-- [ ] 로고 이미지 추가
-- [ ] 기본 상품 이미지 추가
-- [ ] 아이콘 또는 공통 이미지 추가
-
-현재 상태:
-
-- [ ] `assets` 폴더에는 아직 `.gitkeep`만 있음
+- [ ] `src/api`: 백엔드 API 연동 모듈
+- [ ] `src/hooks`: 반복 상태 로직용 커스텀 훅
+- [ ] `src/pages`: 라우팅 단위 페이지가 필요해질 경우 추가
+- [ ] `src/routes`: React Router 도입 시 라우팅 설정
+- [ ] `src/contexts`: 전역 상태가 필요해질 경우 추가
+- [ ] `src/assets`: import 기반 에셋 관리가 필요해질 경우 추가
 
 ## 새 구현 파일을 추가할 때
 
